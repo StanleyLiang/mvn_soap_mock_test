@@ -1,0 +1,128 @@
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.acti</groupId>
+  <artifactId>stepnstest01</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <packaging>jar</packaging>
+
+  <name>stepnstest01</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <test.host>10.50.30.100</test.host>
+  </properties>
+  <build>
+     <plugins>
+        <plugin>
+          <groupId>com.smartbear.soapui</groupId>
+          <artifactId>soapui-maven-plugin</artifactId>
+          <version>5.2.1</version>
+          <configuration>
+              <projectFile>src/test/resources/REST-Project-1-soapui-project.xml</projectFile>
+              <noBlock>true</noBlock>
+              <testSuite>TestSuiteEPNS</testSuite>
+              <testCase>TestCase_toEPNS</testCase>
+              <outputFolder>${basedir}/target/surefire-reports/</outputFolder>
+              <junitReport>true</junitReport>
+              <exportAll>true</exportAll>
+              <printReport>true</printReport>
+              <projectProperties>
+                  <projectProperty>MOCKHOST=${test.mockhost}</projectProperty>
+                  <projectProperty>HOST=${test.host}</projectProperty>
+                  <projectProperty>TEMPWORK=${test.tempwork}</projectProperty>                  
+              </projectProperties>
+          </configuration>
+          <executions>
+              <execution>
+                  <id>soapUI</id>
+                  <phase>test</phase>
+                  <goals>
+                      <goal>mock</goal>
+                      <goal>test</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+        </configuration>
+       </plugin>
+       <plugin>
+            <groupId>com.smartbear</groupId>
+            <artifactId>ready-api-maven-plugin</artifactId>
+            <version>1.7.0</version>
+        </plugin>
+    </plugins>
+  </build>
+     <reporting>
+       <plugins>
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-surefire-report-plugin</artifactId>
+               <version>2.19.1</version>
+           </plugin>
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-site-plugin</artifactId>
+               <version>2.1</version>
+               <configuration>
+                   <outputDirectory>${basedir}/target/soapui-report/</outputDirectory>
+               </configuration>
+           </plugin>
+       </plugins>
+   </reporting>
+   <repositories>
+       <repository>
+           <id>nexus-public</id>
+           <name>Internal Nexus Proxy</name>
+           <url>https://nexus-us.ctbg.acer.com/repository/maven-public/</url>
+           <snapshots>
+               <enabled>false</enabled>
+           </snapshots>
+       </repository>
+   </repositories>
+   <pluginRepositories>
+       <pluginRepository>
+           <id>nexus-public</id>
+           <name>Internal Nexus Proxy</name>
+           <url>https://nexus-us.ctbg.acer.com/repository/maven-public/</url>
+           <snapshots>
+               <enabled>false</enabled>
+           </snapshots>
+       </pluginRepository>
+   </pluginRepositories>
+   <dependencies>
+     <dependency>
+       <groupId>org.slf4j</groupId>
+       <artifactId>slf4j-api</artifactId>
+       <version>1.7.21</version>
+     </dependency>
+     <dependency>
+       <groupId>org.testng</groupId>
+       <artifactId>testng</artifactId>
+       <scope>test</scope>
+       <version>6.9.10</version>
+     </dependency>
+     <dependency>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-surefire-report-plugin</artifactId>
+       <version>2.19.1</version>
+     </dependency>
+ </dependencies>
+ <scm>
+   <connection>scm:git@gitsrc-us.ctbg.acer.com:infra/externalPushNotificationService_test.git</connection>
+   <tag>HEAD</tag>
+ </scm>  
+</project>
+
+
